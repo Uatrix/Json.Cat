@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Json.Cat</title>
+        <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/zui/1.10.0/css/zui.min.css">
+        <script src="https://cdn.bootcdn.net/ajax/libs/zui/1.10.0/lib/jquery/jquery.js"></script>
+        <style>
+            main {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: row;
+                font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆 !important;
+            }
+
+            #source {
+                flex: 30;
+                border: none;
+                resize: none;
+                outline: none;
+                border-right: 1px inset;
+                padding: 1rem;
+                color: #424242 !important;
+            }
+
+            #target {
+                flex: 70;
+                border: none;
+                resize: none;
+                outline: none;
+                padding: 1rem;
+                color: #3c763d;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <textarea id="source" autofocus placeholder="Source"></textarea>
+            <textarea id="target" readonly placeholder="Format"></textarea>
+        </main>
+    </body>
+    <script>
+        const source = $("#source")
+        const target = $("#target")
+        source.keyup(() => {
+            try {
+                const text = source.val()
+                if (text.trim() == '') {
+                    target.val("")
+                } else {
+                    const json = JSON.parse(text)
+                    const tree = JSON.stringify(json, null, '\t')
+                    target.val(tree)
+                }
+            } catch (e) {
+                target.val(e.message)
+            }
+        })
+    </script>
+</html>
